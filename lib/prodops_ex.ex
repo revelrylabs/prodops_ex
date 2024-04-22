@@ -3,6 +3,8 @@ defmodule ProdopsEx do
   Documentation for `ProdopsEx`.
   """
 
+  alias ProdopsEx.Validate
+
   @doc """
   Hello world.
 
@@ -14,5 +16,9 @@ defmodule ProdopsEx do
   """
   def hello do
     :world
+  end
+
+  def validate(config) do
+    Validate.validate(config)
   end
 end
