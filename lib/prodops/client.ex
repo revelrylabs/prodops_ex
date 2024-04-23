@@ -26,13 +26,7 @@ defmodule ProdopsEx.Client do
 
         {:ok, res}
 
-      {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-        {:ok, body}
-
       {:ok, %HTTPoison.Response{body: {:ok, body}}} ->
-        {:error, body}
-
-      {:ok, %HTTPoison.Response{body: {:error, body}}} ->
         {:error, body}
 
       # html error responses
