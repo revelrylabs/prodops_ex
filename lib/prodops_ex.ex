@@ -10,7 +10,7 @@ defmodule ProdopsEx do
 
   ## Parameters
 
-  - `config`: The configuration map to be validated. This should include all required keys and values as defined by the system's requirements.
+  - `config`: The configuration map containing the API key and endpoint URL.
 
   ## Example
   ```elixir
@@ -22,9 +22,9 @@ defmodule ProdopsEx do
   ```
 
   ## Returns
-  {:ok, %{status: "ok", response: %{"team_id" => 40, "team_name" => "ProdOps Demos"}}}
+  {:ok, %{status: "ok", response: %{"team_id" => 1, "team_name" => "ProdOps"}}}
   """
-  def validate(config) do
-    Validate.validate(config)
+  def validate_api_key(config) do
+    Validate.validate_api_key(config)
   end
 end
