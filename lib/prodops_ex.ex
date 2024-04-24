@@ -3,7 +3,7 @@ defmodule ProdopsEx do
   Documentation for `ProdopsEx`.
   """
 
-  alias ProdopsEx.Artifacts
+  alias ProdopsEx.Artifact
   alias ProdopsEx.ArtifactType
   alias ProdopsEx.Project
   alias ProdopsEx.Validate
@@ -50,7 +50,7 @@ defmodule ProdopsEx do
   ```
   """
   def get_artifacts_for_project(params, config) do
-    Artifacts.get_artifacts_for_project(params, config)
+    Artifact.get_artifacts_for_project(params, config)
   end
 
   @doc """
