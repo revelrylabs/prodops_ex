@@ -110,4 +110,8 @@ defmodule ProdopsEx do
   def list_projects(config) do
     Project.list(config)
   end
+
+  def create_artifact(config, params) do
+    Artifact.create_artifact(config, params)
+  end
 end
