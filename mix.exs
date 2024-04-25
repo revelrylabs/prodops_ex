@@ -7,6 +7,7 @@ defmodule ProdopsEx.MixProject do
       version: "0.1.0",
       elixir: "~> 1.16",
       deps: deps(),
+      compilers: [:yecc, :leex] ++ Mix.compilers(),
       aliases: aliases(),
 
       # Docs
