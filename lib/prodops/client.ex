@@ -38,7 +38,7 @@ defmodule ProdopsEx.Client do
     end
   end
 
-  def api_get(url, params \\ [], config) do
+  def api_get(url, config) do
     url
     |> get(request_headers(config), config.http_options)
     |> handle_response()
