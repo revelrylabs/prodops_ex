@@ -55,7 +55,7 @@ defmodule ProdopsEx.Artifact do
   The function should return a list of artifacts for the specified project.
   """
   @spec get_artifacts_for_project(map, %Config{}) :: {:ok, list} | {:error, any}
-  def get_artifacts_for_project(%{artifact_slug: artifact_slug, project_id: project_id} = params, %Config{} = config) do
+  def get_artifacts_for_project(%{artifact_slug: artifact_slug, project_id: project_id} = _params, %Config{} = config) do
     endpoint = url(config)
     path = "/#{artifact_slug}/artifacts?project_id=#{project_id}"
     Client.api_get(endpoint <> path, config)
@@ -93,7 +93,10 @@ defmodule ProdopsEx.Artifact do
           },
           %Config{}
         ) :: {:ok, map()} | {:error, term()}
-  def create_artifact(%{prompt_template_id: prompt_template_id, artifact_slug: artifact_slug, project_id: project_id} = params, %Config{} = config) do
+  def create_artifact(
+        %{prompt_template_id: prompt_template_id, artifact_slug: artifact_slug, project_id: project_id} = params,
+        %Config{} = config
+      ) do
     url = url(config)
     path = "/#{artifact_slug}/artifacts?project_id=#{project_id}"
     fire_and_forget = Map.get(params, :fire_and_forget, false)
@@ -142,6 +145,6 @@ defmodule ProdopsEx.Artifact do
   def delete_artifact_by_id(params, %Config{} = config) do
     %{artifact_slug: artifact_slug, artifact_id: artifact_id} = params
     endpoint = url(config) <> "/#{artifact_slug}/artifacts/#{artifact_id}"
-    Client.api_delete(endpoint, [], config)
+    Client.api_delete(endpoint, config)
   end
 end

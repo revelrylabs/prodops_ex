@@ -28,7 +28,7 @@ defmodule ProdopsEx do
   ```
   """
   def delete_artifact_by_id(params, config) do
-    Artifacts.delete_artifact_by_id(params, config)
+    Artifact.delete_artifact_by_id(params, config)
   end
 
   @doc """
@@ -72,7 +72,7 @@ defmodule ProdopsEx do
   ```
   """
   def get_artifact_by_id(params, config) do
-    Artifacts.get_artifact_by_id(params, config)
+    Artifact.get_artifact_by_id(params, config)
   end
 
   @doc """

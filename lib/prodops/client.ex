@@ -55,7 +55,7 @@ defmodule ProdopsEx.Client do
     |> handle_response()
   end
 
-  def api_delete(path, params \\ [], config) do
+  def api_delete(path, config) do
     path
     |> delete(request_headers(config), config.http_options)
     |> handle_response()
