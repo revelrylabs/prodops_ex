@@ -6,8 +6,17 @@ defmodule ProdopsEx.MixProject do
       app: :prodops_ex,
       version: "0.1.0",
       elixir: "~> 1.16",
-      start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      aliases: aliases(),
+
+      # Docs
+      name: "ProdopsEx",
+      source_url: "https://github.com/revelrylabs/prodops_ex",
+      docs: [
+        main: "ProdopsEx",
+        logo: "prodops-logo.png",
+        extras: ["README.md"]
+      ]
     ]
   end
 
@@ -16,6 +25,14 @@ defmodule ProdopsEx.MixProject do
     [
       extra_applications: [:logger]
     ]
+  end
+
+  defp aliases do
+    [docs: ["docs", &copy_logo/1]]
+  end
+
+  defp copy_logo(_) do
+    File.cp!("./prodops-logo.png", "./doc/prodops-logo.png")
   end
 
   # Run "mix help deps" to learn about dependencies.
