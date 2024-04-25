@@ -11,6 +11,10 @@ defmodule ProdopsEx.Artifact do
     config.api_url <> @base_path <> "/#{artifact_slug}/artifacts?project_id=#{project_id}"
   end
 
+  defp url(%Config{} = config) do
+    config.api_url <> @base_path
+  end
+
   @doc """
   Retrieves artifacts for a given project.
 
@@ -51,9 +55,10 @@ defmodule ProdopsEx.Artifact do
   The function should return a list of artifacts for the specified project.
   """
   @spec get_artifacts_for_project(map, %Config{}) :: {:ok, list} | {:error, any}
-  def get_artifacts_for_project(params, %Config{} = config) do
-    endpoint = url(params, config)
-    Client.api_get(endpoint, config)
+  def get_artifacts_for_project(%{artifact_slug: artifact_slug, project_id: project_id} = params, %Config{} = config) do
+    endpoint = url(config)
+    path = "/#{artifact_slug}/artifacts?project_id=#{project_id}"
+    Client.api_get(endpoint <> path, config)
   end
 
   @doc """
@@ -88,12 +93,55 @@ defmodule ProdopsEx.Artifact do
           },
           %Config{}
         ) :: {:ok, map()} | {:error, term()}
-  def create_artifact(%{prompt_template_id: prompt_template_id} = params, %Config{} = config) do
-    url = url(params, config)
+  def create_artifact(%{prompt_template_id: prompt_template_id, artifact_slug: artifact_slug, project_id: project_id} = params, %Config{} = config) do
+    url = url(config)
+    path = "/#{artifact_slug}/artifacts?project_id=#{project_id}"
     fire_and_forget = Map.get(params, :fire_and_forget, false)
     inputs = Map.get(params, :inputs, [])
     body = %{prompt_template_id: prompt_template_id, inputs: inputs, fire_and_forget: fire_and_forget}
+    Client.api_post(url <> path, body, config)
+  end
 
-    Client.api_post(url, body, config)
+  @doc """
+  Retrieves an artifact by its ID.
+
+  ## Parameters
+
+  - `params`: The parameters for the artifact request.
+  - `config`: The configuration map containing the API key and endpoint URL.
+
+  ## Example
+
+      iex> ProdopsEx.get_artifact_by_id(%{artifact_slug: "story", artifact_id: 1}, %ProdopsEx.Config{bearer_token: "your_api_key_here"})
+      {:ok,
+
+        }
+  """
+  @spec get_artifact_by_id(map, %Config{}) :: {:ok, map} | {:error, any}
+  def get_artifact_by_id(params, %Config{} = config) do
+    %{artifact_slug: artifact_slug, artifact_id: artifact_id} = params
+    endpoint = url(config) <> "/#{artifact_slug}/artifacts/#{artifact_id}"
+    Client.api_get(endpoint, config)
+  end
+
+  @doc """
+  Deletes an artifact by its ID.
+
+  ## Parameters
+
+  - `params`: The parameters for the artifact delete request.
+  - `config`: The configuration map containing the API key and endpoint URL.
+
+  ## Example
+
+      iex> ProdopsEx.delete_artifact_by_id(%{artifact_slug: "story", artifact_id: 1}, %ProdopsEx.Config{bearer_token: "your_api_key_here"})
+      {:ok,
+        %{status: "ok", response: %{"message" => "Artifact deleted successfully."}}}
+  """
+  @spec delete_artifact_by_id(map, %Config{}) :: {:ok, map} | {:error, any}
+  def delete_artifact_by_id(params, %Config{} = config) do
+    %{artifact_slug: artifact_slug, artifact_id: artifact_id} = params
+    endpoint = url(config) <> "/#{artifact_slug}/artifacts/#{artifact_id}"
+    Client.api_delete(endpoint, [], config)
   end
 end

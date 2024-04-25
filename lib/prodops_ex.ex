@@ -6,29 +6,29 @@ defmodule ProdopsEx do
   alias ProdopsEx.Artifact
   alias ProdopsEx.ArtifactType
   alias ProdopsEx.Project
+  alias ProdopsEx.PromptTemplate
   alias ProdopsEx.Validate
 
   @doc """
-  Validates the provided API key and return team information.
+  Deletes an artifact by its ID.
 
   ## Parameters
 
+  - `params`: The parameters for the artifact delete request.
   - `config`: The configuration map containing the API key and endpoint URL.
 
   ## Example
   ```elixir
-  ProdopsEx.validate(
+  ProdopsEx.delete_artifact_by_id(
+    %{artifact_slug: "story", artifact_id: 1},
     %ProdopsEx.Config{
       bearer_token: "your_api_key_here",
     }
   )
   ```
-
-  ## Returns
-  {:ok, %{status: "ok", response: %{"team_id" => 1, "team_name" => "ProdOps"}}}
   """
-  def validate_api_key(config) do
-    Validate.validate_api_key(config)
+  def delete_artifact_by_id(params, config) do
+    Artifacts.delete_artifact_by_id(params, config)
   end
 
   @doc """
@@ -51,6 +51,28 @@ defmodule ProdopsEx do
   """
   def get_artifacts_for_project(params, config) do
     Artifact.get_artifacts_for_project(params, config)
+  end
+
+  @doc """
+  Retrieves an artifact by its ID.
+
+  ## Parameters
+
+  - `params`: The parameters for the artifact request.
+  - `config`: The configuration map containing the API key and endpoint URL.
+
+  ## Example
+  ```elixir
+  ProdopsEx.get_artifact_by_id(
+    %{artifact_slug: "story", artifact_id: 1},
+    %ProdopsEx.Config{
+      bearer_token: "your_api_key_here",
+    }
+  )
+  ```
+  """
+  def get_artifact_by_id(params, config) do
+    Artifacts.get_artifact_by_id(params, config)
   end
 
   @doc """
@@ -80,6 +102,28 @@ defmodule ProdopsEx do
   """
   def list_artifact_types(config) do
     ArtifactType.list(config)
+  end
+
+  @doc """
+  Retrieves prompt templates for a given artifact type.
+
+  ## Parameters
+
+  - `params`: The parameters for the artifact request.
+  - `config`: The configuration map containing the API key and endpoint URL.
+
+  ## Example
+  ```
+  ProdopsEx.get_prompt_templates_for_artifact_type(
+    %{artifact_type_slug: "story"},
+    %ProdopsEx.Config{
+      bearer_token: "your_api_key_here",
+    }
+  )
+  ```
+  """
+  def get_prompt_templates_for_artifact_type(params, config) do
+    PromptTemplate.get_prompt_templates_for_artifact_type(params, config)
   end
 
   @doc """
@@ -137,5 +181,28 @@ defmodule ProdopsEx do
   """
   def create_artifact(params, config) do
     Artifact.create_artifact(params, config)
+  end
+
+  @doc """
+  Validates the provided API key and return team information.
+
+  ## Parameters
+
+  - `config`: The configuration map containing the API key and endpoint URL.
+
+  ## Example
+  ```elixir
+  ProdopsEx.validate(
+    %ProdopsEx.Config{
+      bearer_token: "your_api_key_here",
+    }
+  )
+  ```
+
+  ## Returns
+  {:ok, %{status: "ok", response: %{"team_id" => 1, "team_name" => "ProdOps"}}}
+  """
+  def validate_api_key(config) do
+    Validate.validate_api_key(config)
   end
 end
