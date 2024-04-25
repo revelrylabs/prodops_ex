@@ -13,4 +13,15 @@ defmodule ProdopsEx.Config do
   def new(opts \\ []) do
     Enum.into(opts, %__MODULE__{})
   end
+
+  definition = [
+    api_url: [
+      type: :string,
+      default: "https://app.prodops.ai"
+    ],
+    bearer_token: [
+      type: :string,
+      required: true
+    ]
+  ]
 end
