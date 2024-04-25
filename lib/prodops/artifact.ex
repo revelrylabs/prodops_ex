@@ -7,10 +7,6 @@ defmodule ProdopsEx.Artifact do
 
   @base_path "/api/v1/artifact_types"
 
-  def url(%{project_id: project_id, artifact_slug: artifact_slug}, %Config{} = config) do
-    config.api_url <> @base_path <> "/#{artifact_slug}/artifacts?project_id=#{project_id}"
-  end
-
   defp url(%Config{} = config) do
     config.api_url <> @base_path
   end
