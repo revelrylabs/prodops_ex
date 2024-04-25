@@ -58,7 +58,7 @@ defmodule ProdopsEx.Client do
   defp request_headers(config) do
     [
       {"Authorization", "Bearer #{config.bearer_token}"},
-      {"Content-type", "application/json"}
+      {"Content-Type", "application/json"}
     ]
   end
 end
