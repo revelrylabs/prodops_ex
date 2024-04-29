@@ -3,11 +3,10 @@ defmodule ProdopsEx.Artifact do
   Handles artifact operations for the ProdOps API such as retrieving artifacts for a given project, creating artifacts, refining artifacts, and deleting artifacts.
   """
   alias ProdopsEx.Client
-  alias ProdopsEx.Config
 
   @base_path "/api/v1/artifact_types"
 
-  defp url(%Config{} = config) do
+  defp url(config) do
     config.api_url <> @base_path
   end
 
@@ -50,8 +49,8 @@ defmodule ProdopsEx.Artifact do
   ## Returns
   The function should return a list of artifacts for the specified project.
   """
-  @spec get_artifacts_for_project(map, %Config{}) :: {:ok, list} | {:error, any}
-  def get_artifacts_for_project(%{artifact_slug: artifact_slug, project_id: project_id} = _params, %Config{} = config) do
+  @spec get_artifacts_for_project(map, Keyword.t()) :: {:ok, list} | {:error, any}
+  def get_artifacts_for_project(%{artifact_slug: artifact_slug, project_id: project_id} = _params, config) do
     endpoint = url(config)
     path = "/#{artifact_slug}/artifacts?project_id=#{project_id}"
     Client.api_get(endpoint <> path, config)
@@ -87,11 +86,11 @@ defmodule ProdopsEx.Artifact do
             inputs: list(),
             fire_and_forget: boolean()
           },
-          %Config{}
+          Keyword.t()
         ) :: {:ok, map()} | {:error, term()}
   def create_artifact(
         %{prompt_template_id: prompt_template_id, artifact_slug: artifact_slug, project_id: project_id} = params,
-        %Config{} = config
+        config
       ) do
     url = url(config)
     path = "/#{artifact_slug}/artifacts?project_id=#{project_id}"
@@ -116,8 +115,8 @@ defmodule ProdopsEx.Artifact do
 
         }
   """
-  @spec get_artifact_by_id(map, %Config{}) :: {:ok, map} | {:error, any}
-  def get_artifact_by_id(params, %Config{} = config) do
+  @spec get_artifact_by_id(map, Keyword.t()) :: {:ok, map} | {:error, any}
+  def get_artifact_by_id(params, config) do
     %{artifact_slug: artifact_slug, artifact_id: artifact_id} = params
     endpoint = url(config) <> "/#{artifact_slug}/artifacts/#{artifact_id}"
     Client.api_get(endpoint, config)
@@ -137,8 +136,8 @@ defmodule ProdopsEx.Artifact do
       {:ok,
         %{status: "ok", response: %{"message" => "Artifact deleted successfully."}}}
   """
-  @spec delete_artifact_by_id(map, %Config{}) :: {:ok, map} | {:error, any}
-  def delete_artifact_by_id(params, %Config{} = config) do
+  @spec delete_artifact_by_id(map, Keyword.t()) :: {:ok, map} | {:error, any}
+  def delete_artifact_by_id(params, config) do
     %{artifact_slug: artifact_slug, artifact_id: artifact_id} = params
     endpoint = url(config) <> "/#{artifact_slug}/artifacts/#{artifact_id}"
     Client.api_delete(endpoint, config)

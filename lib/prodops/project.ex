@@ -3,16 +3,19 @@ defmodule ProdopsEx.Project do
   Handles project operations for the ProdOps API.
   """
   alias ProdopsEx.Client
-  alias ProdopsEx.Config
 
   @base_path "/api/v1/projects"
+
+  defp url(config) do
+    config.api_url <> @base_path
+  end
 
   @doc """
   Returns a list of all projects for a given team
 
   ## Examples
 
-      iex> ProdopsEx.Project.list(%ProdopsEx.Config{bearer_token: "your_api_key_here"})
+      iex> ProdopsEx.Project.list()
       {:ok, %{status: "ok", response: %{ "projects": [
             {
               "id": 1,
@@ -21,12 +24,8 @@ defmodule ProdopsEx.Project do
             }
         ]}}}
   """
-  @spec list(%Config{}) :: {:ok, map} | {:error, any}
-  def list(%Config{} = config) do
+  @spec list(Keyword.t()) :: {:ok, map} | {:error, any}
+  def list(config \\ []) do
     Client.api_get(url(config), config)
-  end
-
-  defp url(%Config{} = config) do
-    config.api_url <> @base_path
   end
 end

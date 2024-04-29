@@ -5,6 +5,7 @@ defmodule ProdopsEx do
 
   alias ProdopsEx.Artifact
   alias ProdopsEx.ArtifactType
+  alias ProdopsEx.Config
   alias ProdopsEx.DataCenter
   alias ProdopsEx.Project
   alias ProdopsEx.PromptTemplate
@@ -16,7 +17,7 @@ defmodule ProdopsEx do
   ## Parameters
 
   - `params`: The parameters for the artifact delete request.
-  - `config`: The configuration map containing the API key and endpoint URL.
+  - `config`:  configuration map containing the API key and endpoint URL.
 
   ## Example
   ```elixir
@@ -28,7 +29,8 @@ defmodule ProdopsEx do
   )
   ```
   """
-  def delete_artifact_by_id(params, config) do
+  def delete_artifact_by_id(params, config \\ []) do
+    Config.resolve_config(config)
     Artifact.delete_artifact_by_id(params, config)
   end
 
@@ -50,7 +52,8 @@ defmodule ProdopsEx do
   )
   ```
   """
-  def get_artifacts_for_project(params, config) do
+  def get_artifacts_for_project(params, config \\ []) do
+    Config.resolve_config(config)
     Artifact.get_artifacts_for_project(params, config)
   end
 
@@ -72,7 +75,8 @@ defmodule ProdopsEx do
   )
   ```
   """
-  def get_artifact_by_id(params, config) do
+  def get_artifact_by_id(params, config \\ []) do
+    Config.resolve_config(config)
     Artifact.get_artifact_by_id(params, config)
   end
 
@@ -101,7 +105,8 @@ defmodule ProdopsEx do
             }
   ]}}}
   """
-  def list_artifact_types(config) do
+  def list_artifact_types(config \\ []) do
+    Config.resolve_config(config)
     ArtifactType.list(config)
   end
 
@@ -123,7 +128,8 @@ defmodule ProdopsEx do
   )
   ```
   """
-  def get_prompt_templates_for_artifact_type(params, config) do
+  def get_prompt_templates_for_artifact_type(params, config \\ []) do
+    Config.resolve_config(config)
     PromptTemplate.get_prompt_templates_for_artifact_type(params, config)
   end
 
@@ -152,7 +158,8 @@ defmodule ProdopsEx do
             }
   ]}}}
   """
-  def list_projects(config) do
+  def list_projects(config \\ []) do
+    Config.resolve_config(config)
     Project.list(config)
   end
 
@@ -180,7 +187,8 @@ defmodule ProdopsEx do
   )
   ```
   """
-  def create_artifact(params, config) do
+  def create_artifact(params, config \\ []) do
+    Config.resolve_config(config)
     Artifact.create_artifact(params, config)
   end
 
@@ -203,7 +211,8 @@ defmodule ProdopsEx do
   ## Returns
   {:ok, %{status: "ok", response: %{"team_id" => 1, "team_name" => "ProdOps"}}}
   """
-  def validate_api_key(config) do
+  def validate_api_key(config \\ []) do
+    Config.resolve_config(config)
     Validate.validate_api_key(config)
   end
 
@@ -228,7 +237,8 @@ defmodule ProdopsEx do
   ## Returns
    {:ok, %{status: "ok", response: %{"id" => 4}}}
   """
-  def upload_document(params, config) do
+  def upload_document(params, config \\ []) do
+    Config.resolve_config(config)
     DataCenter.upload_document(params, config)
   end
 end

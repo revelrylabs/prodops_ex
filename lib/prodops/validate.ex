@@ -3,7 +3,6 @@ defmodule ProdopsEx.Validate do
   Handles validation operations for the ProdOps API.
   """
   alias ProdopsEx.Client
-  alias ProdopsEx.Config
 
   @base_path "/api/v1/validate"
 
@@ -19,12 +18,12 @@ defmodule ProdopsEx.Validate do
       iex> ProdopsEx.Validate.validate_api_key(%ProdopsEx.Config{bearer_token: "your_api_key_here"})
       {:ok, %{status: "ok", response: %{"team_id" => 1, "team_name" => "ProdOps"}}}
   """
-  @spec validate_api_key(%Config{}) :: {:ok, map} | {:error, any}
-  def validate_api_key(%Config{} = config) do
+  @spec validate_api_key(Keyword.t()) :: {:ok, map} | {:error, any}
+  def validate_api_key(config) do
     Client.api_post(url(config), [], config)
   end
 
-  defp url(%Config{} = config) do
+  defp url(config) do
     config.api_url <> @base_path
   end
 end
