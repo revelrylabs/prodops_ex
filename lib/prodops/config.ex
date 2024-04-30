@@ -8,7 +8,7 @@ defmodule ProdopsEx.Config do
       type: :string,
       default: "https://app.prodops.ai"
     ],
-    bearer_token: [
+    api_key: [
       type: :string,
       required: true
     ],
