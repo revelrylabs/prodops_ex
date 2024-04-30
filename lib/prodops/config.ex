@@ -3,26 +3,26 @@ defmodule ProdopsEx.Config do
   Defines the configuration structure for interacting with the ProdOps API.
   """
 
-  defp definition do
-    [
-      api_url: [
-        type: :string,
-        default: "https://app.prodops.ai"
+  @definition [
+    api_url: [
+      type: :string,
+      default: "https://app.prodops.ai"
+    ],
+    bearer_token: [
+      type: :string,
+      required: true
+    ],
+    http_options: [
+      type: :keyword_list,
+      keys: [*: [type: :any]],
+      default: [
+        recv_timeout: 60_000
       ],
-      bearer_token: [
-        type: :string,
-        required: true
-      ],
-      http_options: [
-        type: :keyword_list,
-        keys: :*,
-        default: [
-          recv_timeout: 60_000
-        ],
-        required: false
-      ]
+      required: false
     ]
-  end
+  ]
+
+  @schema NimbleOptions.new!(@definition)
 
   @doc """
   Return configuration based on passed-in, application, and default
@@ -54,6 +54,6 @@ defmodule ProdopsEx.Config do
       |> Keyword.merge(passed_in_config)
       |> Keyword.put(:http_options, http_options)
 
-    NimbleOptions.validate!(resolved_config, definition())
+    NimbleOptions.validate!(resolved_config, @schema)
   end
 end

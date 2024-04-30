@@ -3,11 +3,12 @@ defmodule ProdopsEx.Artifact do
   Handles artifact operations for the ProdOps API such as retrieving artifacts for a given project, creating artifacts, refining artifacts, and deleting artifacts.
   """
   alias ProdopsEx.Client
+  alias ProdopsEx.Config
 
   @base_path "/api/v1/artifact_types"
 
   defp url(config) do
-    config.api_url <> @base_path
+    config[:api_url] <> @base_path
   end
 
   @doc """
@@ -92,6 +93,7 @@ defmodule ProdopsEx.Artifact do
         %{prompt_template_id: prompt_template_id, artifact_slug: artifact_slug, project_id: project_id} = params,
         config
       ) do
+    config = Config.resolve_config(config)
     url = url(config)
     path = "/#{artifact_slug}/artifacts?project_id=#{project_id}"
     fire_and_forget = Map.get(params, :fire_and_forget, false)

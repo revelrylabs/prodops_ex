@@ -3,6 +3,7 @@ defmodule ProdopsEx.PromptTemplate do
   Handles prompt template operations for the ProdOps API
   """
   alias ProdopsEx.Client
+  alias ProdopsEx.Config
 
   @base_path "/api/v1/artifact_types"
 
@@ -57,12 +58,13 @@ defmodule ProdopsEx.PromptTemplate do
   """
   @spec get_prompt_templates_for_artifact_type(map, Keyword.t()) :: {:ok, list} | {:error, any}
   def get_prompt_templates_for_artifact_type(params, config) do
+    config = Config.resolve_config(config)
     %{artifact_type_slug: artifact_type_slug} = params
     endpoint = url(config) <> "/#{artifact_type_slug}/prompt_templates"
     Client.api_get(endpoint, config)
   end
 
   defp url(config) do
-    config.api_url <> @base_path
+    config[:api_url] <> @base_path
   end
 end

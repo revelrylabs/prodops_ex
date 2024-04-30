@@ -3,6 +3,7 @@ defmodule ProdopsEx.DataCenter do
   Handles data center operations for the ProdOps API.
   """
   alias ProdopsEx.Client
+  alias ProdopsEx.Config
 
   @base_path "/api/v1/data_center"
 
@@ -16,6 +17,7 @@ defmodule ProdopsEx.DataCenter do
   """
   @spec upload_document(map, Keyword.t()) :: {:ok, map} | {:error, any}
   def upload_document(params, config) do
+    config = Config.resolve_config(config)
     %{file_name: file_name} = params
     endpoint = url(config) <> "/documents/upload"
     body = {:multipart, [{:file, file_name, {["form-data"], [name: "\"document\"", filename: file_name]}, []}]}
@@ -23,6 +25,6 @@ defmodule ProdopsEx.DataCenter do
   end
 
   defp url(config) do
-    config.api_url <> @base_path
+    config[:api_url] <> @base_path
   end
 end
