@@ -16,7 +16,7 @@ defmodule ProdopsEx.Validate do
 
   ## Example
 
-      iex> ProdopsEx.Validate.validate_api_key(%ProdopsEx.Config{bearer_token: "your_api_key_here"})
+      iex> ProdopsEx.Validate.validate_api_key()
       {:ok, %{status: "ok", response: %{"team_id" => 1, "team_name" => "ProdOps"}}}
   """
   @spec validate_api_key(Keyword.t()) :: {:ok, map} | {:error, any}

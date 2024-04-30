@@ -12,7 +12,7 @@ defmodule ProdopsEx.DataCenter do
 
   ## Examples
 
-      iex> ProdopsEx.DataCenter.upload_document(%{file_name: "test.txt"}, %ProdopsEx.Config{bearer_token: "your_api_key_here"})
+      iex> ProdopsEx.DataCenter.upload_document(%{file_name: "test.txt"})
       {:ok, %{status: "ok", response: %{"id" => 4}}}
   """
   @spec upload_document(map, Keyword.t()) :: {:ok, map} | {:error, any}

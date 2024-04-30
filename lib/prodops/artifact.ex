@@ -21,7 +21,7 @@ defmodule ProdopsEx.Artifact do
 
   ## Example
 
-      iex> ProdopsEx.get_artifacts_for_project(%{project_id: 1, artifact_slug: "story"}, %ProdopsEx.Config{bearer_token: "your_api_key_here"})
+      iex> ProdopsEx.get_artifacts_for_project(%{project_id: 1, artifact_slug: "story"})
       {:ok,
         %{
           status: "ok",
@@ -67,9 +67,7 @@ defmodule ProdopsEx.Artifact do
 
   ## Examples
 
-      iex> ProdopsEx.Artifacts.create_artifact(%ProdopsEx.Config{
-      ...>   bearer_token: "your_api_key_here"
-      ...> }, %{
+      iex> ProdopsEx.Artifacts.create_artifact(%{
       ...>   prompt_template_id: 2,
       ...>   artifact_slug: "story",
       ...>   inputs: [
@@ -112,7 +110,7 @@ defmodule ProdopsEx.Artifact do
 
   ## Example
 
-      iex> ProdopsEx.get_artifact_by_id(%{artifact_slug: "story", artifact_id: 1}, %ProdopsEx.Config{bearer_token: "your_api_key_here"})
+      iex> ProdopsEx.get_artifact_by_id(%{artifact_slug: "story", artifact_id: 1})
       {:ok,
 
         }
@@ -134,7 +132,7 @@ defmodule ProdopsEx.Artifact do
 
   ## Example
 
-      iex> ProdopsEx.delete_artifact_by_id(%{artifact_slug: "story", artifact_id: 1}, %ProdopsEx.Config{bearer_token: "your_api_key_here"})
+      iex> ProdopsEx.delete_artifact_by_id(%{artifact_slug: "story", artifact_id: 1})
       {:ok,
         %{status: "ok", response: %{"message" => "Artifact deleted successfully."}}}
   """

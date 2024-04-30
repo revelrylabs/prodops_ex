@@ -17,7 +17,7 @@ defmodule ProdopsEx.PromptTemplate do
 
   ## Example
 
-      iex> ProdopsEx.get_prompt_templates_for_artifact_type(%{artifact_type_slug: "story"}, %ProdopsEx.Config{bearer_token: "your_api_key_here"})
+      iex> ProdopsEx.get_prompt_templates_for_artifact_type(%{artifact_type_slug: "story"})
       {:ok,
         %{
           status: "ok",

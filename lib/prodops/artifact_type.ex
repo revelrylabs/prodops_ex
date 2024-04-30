@@ -12,7 +12,7 @@ defmodule ProdopsEx.ArtifactType do
 
   ## Examples
 
-      iex> ProdopsEx.ArtifactType.list(%ProdopsEx.Config{bearer_token: "your_api_key_here"})
+      iex> ProdopsEx.ArtifactType.list()
       {:ok, %{status: "ok", response: %{ "artifact_types": [
             {
                 "slug": "story",
