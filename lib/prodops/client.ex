@@ -69,14 +69,14 @@ defmodule ProdopsEx.Client do
 
   defp request_headers(config) do
     [
-      {"Authorization", "Bearer #{config[:bearer_token]}"},
+      {"Authorization", "Bearer #{config[:api_key]}"},
       {"Content-Type", "application/json"}
     ]
   end
 
   defp multi_part_request_headers(config) do
     [
-      {"Authorization", "Bearer #{config[:bearer_token]}"},
+      {"Authorization", "Bearer #{config[:api_key]}"},
       {"Content-Type", "multipart/form-data"}
     ]
   end
