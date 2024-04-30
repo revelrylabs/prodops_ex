@@ -21,12 +21,7 @@ defmodule ProdopsEx do
 
   ## Example
   ```elixir
-  ProdopsEx.delete_artifact_by_id(
-    %{artifact_slug: "story", artifact_id: 1},
-    %ProdopsEx.Config{
-      bearer_token: "your_api_key_here",
-    }
-  )
+  ProdopsEx.delete_artifact_by_id(%{artifact_slug: "story", artifact_id: 1})
   ```
   """
   def delete_artifact_by_id(params, config \\ []) do
@@ -44,12 +39,7 @@ defmodule ProdopsEx do
 
   ## Example
   ```
-  ProdopsEx.get_artifacts_for_project(
-    %{project_id: 212, artifact_slug: "story"},
-    %ProdopsEx.Config{
-      bearer_token: "your_api_key_here",
-    }
-  )
+  ProdopsEx.get_artifacts_for_project(%{project_id: 212, artifact_slug: "story"})
   ```
   """
   def get_artifacts_for_project(params, config \\ []) do
@@ -67,12 +57,7 @@ defmodule ProdopsEx do
 
   ## Example
   ```elixir
-  ProdopsEx.get_artifact_by_id(
-    %{artifact_slug: "story", artifact_id: 1},
-    %ProdopsEx.Config{
-      bearer_token: "your_api_key_here",
-    }
-  )
+  ProdopsEx.get_artifact_by_id(%{artifact_slug: "story", artifact_id: 1})
   ```
   """
   def get_artifact_by_id(params, config \\ []) do
@@ -89,11 +74,7 @@ defmodule ProdopsEx do
 
   ## Example
   ```elixir
-  ProdopsEx.list_artifact_types(
-    %ProdopsEx.Config{
-      bearer_token: "your_api_key_here",
-    }
-  )
+  ProdopsEx.list_artifact_types()
   ```
 
   ## Returns
@@ -120,12 +101,7 @@ defmodule ProdopsEx do
 
   ## Example
   ```
-  ProdopsEx.get_prompt_templates_for_artifact_type(
-    %{artifact_type_slug: "story"},
-    %ProdopsEx.Config{
-      bearer_token: "your_api_key_here",
-    }
-  )
+  ProdopsEx.get_prompt_templates_for_artifact_type(%{artifact_type_slug: "story"})
   ```
   """
   def get_prompt_templates_for_artifact_type(params, config \\ []) do
@@ -142,11 +118,7 @@ defmodule ProdopsEx do
 
   ## Example
   ```elixir
-  ProdopsEx.list_projects(
-    %ProdopsEx.Config{
-      bearer_token: "your_api_key_here",
-    }
-  )
+  ProdopsEx.list_projects()
   ```
 
   ## Returns
@@ -168,23 +140,19 @@ defmodule ProdopsEx do
 
   ## Parameters
 
-  - `config`: The configuration map containing the API key and any other configuration values.
   - `params`: The parameters for the artifact request.
+  - `config`: The configuration map containing the API key and any other configuration values.
 
   ## Example
   ```
-  ProdopsEx.create_artifact(
-    %ProdopsEx.Config{
-      bearer_token: "your_api_key_here",
-    }
-    %{
-      project_id: 123,
-      slug: "story",
-      prompt_template_id: 123,
-      inputs: [
-        %{name: "Input", value: "Value"}
-      ]}
-  )
+  ProdopsEx.create_artifact(%{
+    project_id: 123,
+    slug: "story",
+    prompt_template_id: 123,
+    inputs: [
+      %{name: "Input", value: "Value"}
+    ]
+  })
   ```
   """
   def create_artifact(params, config \\ []) do
@@ -201,11 +169,7 @@ defmodule ProdopsEx do
 
   ## Example
   ```elixir
-  ProdopsEx.validate(
-    %ProdopsEx.Config{
-      bearer_token: "your_api_key_here",
-    }
-  )
+  ProdopsEx.validate()
   ```
 
   ## Returns
@@ -226,12 +190,7 @@ defmodule ProdopsEx do
 
   ## Example
   ```elixir
-  ProdopsEx.upload_document(
-    %{file_name: "test.txt"},
-    %ProdopsEx.Config{
-      bearer_token: "your_api_key_here",
-    }
-  )
+  ProdopsEx.upload_document(%{file_name: "test.txt"})
   ```
 
   ## Returns
