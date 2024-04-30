@@ -45,8 +45,13 @@ defmodule ProdopsEx.Config do
 
     passed_in_http_options = passed_in_config[:http_options] || []
     application_http_options = application_config[:http_options] || []
+    default_http_options = @definition[:http_options][:default]
 
-    http_options = Keyword.merge(application_http_options, passed_in_http_options)
+    http_options =
+      Keyword.new()
+      |> Keyword.merge(default_http_options)
+      |> Keyword.merge(application_http_options)
+      |> Keyword.merge(passed_in_http_options)
 
     resolved_config =
       Keyword.new()
