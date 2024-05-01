@@ -200,4 +200,23 @@ defmodule ProdopsEx do
     Config.resolve_config(config)
     DataCenter.upload_document(params, config)
   end
+
+  @doc """
+  Refines an artifact.
+  ## Parameters
+  - `params`: The parameters for the artifact request.
+  - `config`: The configuration map containing the API key and any other configuration values.
+  ## Example
+  ```
+  ProdopsEx.refine_artifact(
+    %{artifact_id: 123, artifact_slug: "story", refine_prompt: "Refine this story"},
+    %ProdopsEx.Config{
+      bearer_token: "your_api_key_here",
+    }
+  )
+  ```
+  """
+  def refine_artifact(params, config) do
+    Artifact.refine_artifact(params, config)
+  end
 end
