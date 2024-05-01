@@ -148,4 +148,32 @@ defmodule ProdopsEx.Artifact do
     endpoint = url(config) <> "/#{artifact_slug}/artifacts/#{artifact_id}"
     Client.api_delete(endpoint, config)
   end
+
+  @doc """
+  Refines an artifact by submitting a request with the required parameters.
+
+  ## Parameters
+  - `params`: The parameters for the artifact request.
+  - `config`: The configuration map containing the API key and optionally the URL.
+
+  ## Example
+
+      iex> ProdopsEx.Artifacts.refine_artifact(%{
+      ...>   artifact_id: 1,
+      ...>   artifact_slug: "story",
+      ...>   refine_prompt: "Refine this story"
+      ...> })
+  """
+  @spec refine_artifact(
+          %{
+            artifact_id: integer(),
+            artifact_slug: String.t(),
+            refine_prompt: String.t()
+          },
+          Keyword.t()
+        ) :: {:ok, map} | {:error, any}
+  def refine_artifact(%{artifact_slug: artifact_slug, artifact_id: artifact_id} = params, config) do
+    url = url(config) <> "/#{artifact_slug}/artifacts/#{artifact_id}/refine"
+    Client.api_post(url, params, config)
+  end
 end
