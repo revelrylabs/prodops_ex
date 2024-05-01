@@ -12,19 +12,20 @@ defmodule ProdopsEx.Validate do
 
   ## Parameters
 
-  - `config`: The configuration map containing the API key and endpoint URL.
+  - `config` (optional): a configuration map used to override default config values
 
   ## Example
 
-      iex> ProdopsEx.Validate.validate_api_key(%ProdopsEx.Config{bearer_token: "your_api_key_here"})
+      iex> ProdopsEx.Validate.validate_api_key()
       {:ok, %{status: "ok", response: %{"team_id" => 1, "team_name" => "ProdOps"}}}
   """
-  @spec validate_api_key(%Config{}) :: {:ok, map} | {:error, any}
-  def validate_api_key(%Config{} = config) do
+  @spec validate_api_key(Keyword.t()) :: {:ok, map} | {:error, any}
+  def validate_api_key(config \\ []) do
+    config = Config.resolve_config(config)
     Client.api_post(url(config), [], config)
   end
 
-  defp url(%Config{} = config) do
-    config.api_url <> @base_path
+  defp url(config) do
+    config[:api_url] <> @base_path
   end
 end

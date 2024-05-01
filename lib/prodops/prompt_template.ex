@@ -12,12 +12,12 @@ defmodule ProdopsEx.PromptTemplate do
 
   ## Parameters
 
-  - `params`: The parameters for the prompt template request.
-  - `config`: The configuration map containing the API key and endpoint URL.
+  - `artifact_slug`: the type of prompt templates to return from the request
+  - `config` (optional): a configuration map used to override default config values
 
   ## Example
 
-      iex> ProdopsEx.get_prompt_templates_for_artifact_type(%{artifact_type_slug: "story"}, %ProdopsEx.Config{bearer_token: "your_api_key_here"})
+      iex> ProdopsEx.PromptTemplate.list("story")
       {:ok,
         %{
           status: "ok",
@@ -54,16 +54,16 @@ defmodule ProdopsEx.PromptTemplate do
         }}
 
   ## Returns
-  The function should return a list of prompt templates for the specified artifact type.
+  The function returns a list of prompt templates for the specified artifact type.
   """
-  @spec get_prompt_templates_for_artifact_type(map, %Config{}) :: {:ok, list} | {:error, any}
-  def get_prompt_templates_for_artifact_type(params, %Config{} = config) do
-    %{artifact_type_slug: artifact_type_slug} = params
-    endpoint = url(config) <> "/#{artifact_type_slug}/prompt_templates"
+  @spec list(String.t(), Keyword.t()) :: {:ok, list} | {:error, any}
+  def list(artifact_slug, config \\ []) when is_binary(artifact_slug) do
+    config = Config.resolve_config(config)
+    endpoint = url(config) <> "/#{artifact_slug}/prompt_templates"
     Client.api_get(endpoint, config)
   end
 
-  defp url(%Config{} = config) do
-    config.api_url <> @base_path
+  defp url(config) do
+    config[:api_url] <> @base_path
   end
 end

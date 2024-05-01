@@ -42,7 +42,7 @@ defmodule ProdopsEx.Client do
 
   def api_get(url, config) do
     url
-    |> get(request_headers(config), config.http_options)
+    |> get(request_headers(config), config[:http_options])
     |> handle_response()
   end
 
@@ -58,26 +58,32 @@ defmodule ProdopsEx.Client do
       end)
     else
       url
-      |> post(body, request_headers(config), config.http_options)
+      |> post(body, request_headers(config), config[:http_options])
       |> handle_response()
     end
   end
 
+  def multi_part_api_post(path, body, config) do
+    path
+    |> post(body, multi_part_request_headers(config), config[:http_options])
+    |> handle_response()
+  end
+
   def api_delete(path, config) do
     path
-    |> delete(request_headers(config), config.http_options)
+    |> delete(request_headers(config), config[:http_options])
     |> handle_response()
   end
 
   defp request_headers(config) do
     [
-      {"Authorization", "Bearer #{config.bearer_token}"},
+      {"Authorization", "Bearer #{config[:api_key]}"},
       {"Content-Type", "application/json"}
     ]
   end
 
   defp stream_request_options(config) do
-    http_options = config.http_options
+    http_options = config[:http_options]
 
     case http_options[:stream_to] do
       nil ->
@@ -87,5 +93,12 @@ defmodule ProdopsEx.Client do
       _ ->
         http_options
     end
+  end
+
+  defp multi_part_request_headers(config) do
+    [
+      {"Authorization", "Bearer #{config[:api_key]}"},
+      {"Content-Type", "multipart/form-data"}
+    ]
   end
 end
