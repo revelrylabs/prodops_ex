@@ -33,8 +33,6 @@ defmodule ProdopsEx.Stream do
 
           receive do
             %HTTPoison.AsyncStatus{id: ^id, code: code} ->
-              # Having and IO.inspect here fixes a bug, need to fix more permanently
-              IO.inspect(code, label: "Stream status code")
               HTTPoison.stream_next(res)
 
               case code do

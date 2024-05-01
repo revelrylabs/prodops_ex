@@ -83,7 +83,9 @@ defmodule ProdopsEx.Client do
   end
 
   defp stream_request_options(config) do
-    http_options = config[:http_options]
+    # async: :once seems to be required to work properly with
+    # HTTPoison.stream_next
+    http_options = config[:http_options] ++ [async: :once]
 
     case http_options[:stream_to] do
       nil ->
