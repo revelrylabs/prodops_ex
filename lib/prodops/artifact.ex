@@ -189,8 +189,9 @@ defmodule ProdopsEx.Artifact do
 
       iex> ProdopsEx.stream_refine_artifact(%{artifact_slug: "story", artifact_id: 1}, %ProdopsEx.Config{bearer_token: "your_api_key_here"})
   """
-  @spec stream_refine_artifact(map, %Config{}) :: {:ok, map} | {:error, any}
-  def stream_refine_artifact(params, %Config{} = config) do
+  @spec stream_refine_artifact(map, Keyword.t()) :: {:ok, map} | {:error, any}
+  def stream_refine_artifact(params, config \\ []) do
+    config = Config.resolve_config(config)
     %{artifact_slug: artifact_slug, artifact_id: artifact_id} = params
     endpoint = url(config) <> "/#{artifact_slug}/artifacts/#{artifact_id}/refine_stream"
     Client.api_post(endpoint, params, config)
