@@ -2,8 +2,8 @@ defmodule ProdopsEx.DataCenterTest do
   use ExUnit.Case, async: true
   use Mimic
 
-  alias ProdopsEx.DataCenter
   alias ProdopsEx.Client
+  alias ProdopsEx.DataCenter
 
   describe "upload_document/2" do
     test "uploads a document and returns the server response" do
