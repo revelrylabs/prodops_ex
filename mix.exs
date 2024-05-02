@@ -4,6 +4,8 @@ defmodule ProdopsEx.MixProject do
   def project do
     [
       app: :prodops_ex,
+      description: "An SDK for interacting with the ProdOps API",
+      license: "MIT",
       version: "0.1.0",
       elixir: "~> 1.16",
       deps: deps(),
@@ -13,6 +15,7 @@ defmodule ProdopsEx.MixProject do
       # Docs
       name: "ProdopsEx",
       source_url: "https://github.com/revelrylabs/prodops_ex",
+      homepage_url: "https://prodops.ai",
       docs: [
         main: "readme",
         logo: "prodops-logo.png",
