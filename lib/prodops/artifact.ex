@@ -192,9 +192,10 @@ defmodule ProdopsEx.Artifact do
   @spec stream_refine_artifact(map, Keyword.t()) :: {:ok, map} | {:error, any}
   def stream_refine_artifact(params, config \\ []) do
     config = Config.resolve_config(config)
-    %{artifact_slug: artifact_slug, artifact_id: artifact_id} = params
+    %{artifact_slug: artifact_slug, artifact_id: artifact_id, refine_prompt: refine_prompt} = params
     endpoint = url(config) <> "/#{artifact_slug}/artifacts/#{artifact_id}/refine_stream"
-    Client.api_post(endpoint, params, config)
+    body = %{artifact_slug: artifact_slug, artifact_id: artifact_id, refine_prompt: refine_prompt, stream: true}
+    Client.api_post(endpoint, body, config)
   end
 
   @doc """
