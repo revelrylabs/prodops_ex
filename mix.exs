@@ -7,7 +7,7 @@ defmodule ProdopsEx.MixProject do
       description: "An SDK for interacting with the ProdOps API",
       license: "MIT",
       version: "0.1.0",
-      elixir: "~> 1.16",
+      elixir: "~> 1.12",
       deps: deps(),
       compilers: [:yecc, :leex] ++ Mix.compilers(),
       aliases: aliases(),
