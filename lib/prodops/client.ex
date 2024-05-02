@@ -46,11 +46,8 @@ defmodule ProdopsEx.Client do
     |> handle_response()
   end
 
-  def api_post(url, body_params \\ [], config) do
-    body =
-      body_params
-      |> Map.new()
-      |> Jason.encode!()
+  def api_post(url, body_params \\ %{}, config) do
+    body = Jason.encode!(body_params)
 
     if Map.get(body_params, :stream, false) do
       Stream.new(fn ->
