@@ -1,3 +1,3 @@
-Mimic.copy(ProdopsEx.ArtifactType)
+Mimic.copy(ProdopsEx.Client)
 
 ExUnit.start()

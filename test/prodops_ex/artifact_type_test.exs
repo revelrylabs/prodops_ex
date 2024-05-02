@@ -7,8 +7,6 @@ defmodule ProdopsEx.ArtifactTypeTest do
 
   describe "list/1" do
     test "returns a list of all artifact types for a given team" do
-      Mimic.copy(Client)
-
       api_url = "https://api.example.com"
       api_key = "secret_key"
       full_url = "#{api_url}/api/v1/artifact_types"
