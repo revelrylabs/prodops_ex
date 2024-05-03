@@ -7,7 +7,7 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-22.04
-    name: Test on OTP ${{matrix.otp}} / Elixir ${{matrix.elixir}}
+    name: Publish to Hex
     env:
       HEX_API_KEY: ${{ secrets.HEX_API_KEY }}
       MIX_ENV: test
