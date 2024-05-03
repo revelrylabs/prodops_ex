@@ -14,8 +14,6 @@ jobs:
     strategy:
       matrix:
         include:
-          - otp: "24"
-            elixir: "1.12"
           - otp: "26"
             elixir: "1.16"
     steps:
@@ -37,11 +35,9 @@ jobs:
         run: mix compile --warnings-as-errors
 
       - name: Check formatting
-        if: matrix.elixir == '1.16' && matrix.otp == '26'
         run: mix format --check-formatted
 
       - name: Check function specs with Dialyzer
-        if: matrix.elixir == '1.16' && matrix.otp == '26'
         run: mix dialyzer
 
       - name: Run tests
