@@ -38,6 +38,18 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-mix-${{ env.cache-name }}-
 
+      - name: Cache compiled build
+        id: cache-build
+        uses: actions/cache@v4
+        env:
+          cache-name: cache-compiled-build
+        with:
+          path: _build
+          key: ${{ runner.os }}-mix-${{ env.cache-name }}-elixir-${{ matrix.elixir }}-${{ hashFiles('**/mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-mix-${{ env.cache-name }}-elixir-${{ matrix.elixir }}-
+            ${{ runner.os }}-mix-${{ matrix.elixir }}-
+
       - name: Install dependencies
         run: mix deps.get
 
