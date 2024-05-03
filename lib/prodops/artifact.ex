@@ -172,7 +172,8 @@ defmodule ProdopsEx.Artifact do
           },
           Keyword.t()
         ) :: {:ok, map} | {:error, any}
-  def refine_artifact(%{artifact_slug: artifact_slug, artifact_id: artifact_id} = params, config) do
+  def refine_artifact(%{artifact_slug: artifact_slug, artifact_id: artifact_id} = params, config \\ []) do
+    config = Config.resolve_config(config)
     url = url(config) <> "/#{artifact_slug}/artifacts/#{artifact_id}/refine"
     Client.api_post(url, params, config)
   end
