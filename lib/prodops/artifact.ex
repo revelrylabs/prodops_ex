@@ -49,7 +49,10 @@ defmodule ProdopsEx.Artifact do
                     "content" => "You are going to be a product manager and write a BDD-style user story...",
                     "role" => "user"
                   },
-                  ...
+                  %{
+                    "content" => "## Background ...",
+                    "role" => "assistant"
+                  }
                 ],
                 "content" => "## Background ...",
                 "id" => 1,
@@ -57,8 +60,7 @@ defmodule ProdopsEx.Artifact do
                 "name" => "Artifact Name",
                 "notes" => nil,
                 "share_token" => nil
-              },
-              ...
+              }
             ]
           }
         }}
@@ -89,6 +91,7 @@ defmodule ProdopsEx.Artifact do
       iex> ProdopsEx.Artifact.create(%{
       ...>   prompt_template_id: 2,
       ...>   artifact_slug: "story",
+      ...>   project_id: 1,
       ...>   inputs: [
       ...>     %{name: "Context", value: "this is a test"}
       ...>   ],
@@ -131,29 +134,29 @@ defmodule ProdopsEx.Artifact do
   ## Example
 
       iex> ProdopsEx.Artifact.get(1, "story")
-			{:ok,
-			 %{
-				 status: "ok",
-				 response: %{
-					 "artifact" => %{
-						 "chat_history" => [
-							 %{
-								 "content" => "some user prompt content",
-								 "role" => "user"
-							 },
-							 %{
-								 "content" => "some assistant response content",
-								 "role" => "assistant"
-							 }
-						 ],
-						 "id" => 123,
-						 "manually_edited" => false,
-						 "name" => "Some Name",
-						 "notes" => nil,
-						 "share_token" => nil
-					 }
-				 }
-			 }}
+      {:ok,
+       %{
+         status: "ok",
+         response: %{
+           "artifact" => %{
+             "chat_history" => [
+               %{
+                 "content" => "some user prompt content",
+                 "role" => "user"
+               },
+               %{
+                 "content" => "some assistant response content",
+                 "role" => "assistant"
+               }
+             ],
+             "id" => 123,
+             "manually_edited" => false,
+             "name" => "Some Name",
+             "notes" => nil,
+             "share_token" => nil
+           }
+         }
+       }}
   """
   @spec get(integer(), String.t(), Keyword.t()) :: {:ok, map} | {:error, any}
   def get(artifact_id, artifact_slug, config \\ []) when is_integer(artifact_id) and is_binary(artifact_slug) do
@@ -173,7 +176,7 @@ defmodule ProdopsEx.Artifact do
 
   ## Example
 
-      iex> ProdopsEx.Artifact.delete(1)
+      iex> ProdopsEx.Artifact.delete(1, "story")
       {:ok,
         %{status: "ok", response: %{"message" => "Artifact deleted successfully."}}}
   """
@@ -193,7 +196,7 @@ defmodule ProdopsEx.Artifact do
 
   ## Example
 
-      iex> ProdopsEx.Artifacts.refine_artifact(%{
+      iex> ProdopsEx.Artifact.refine_artifact(%{
       ...>   artifact_id: 1,
       ...>   artifact_slug: "story",
       ...>   refine_prompt: "Refine this story"
@@ -223,7 +226,7 @@ defmodule ProdopsEx.Artifact do
 
   ## Example
 
-      iex> ProdopsEx.stream_refine_artifact(%{artifact_slug: "story", artifact_id: 1}, %ProdopsEx.Config{bearer_token: "your_api_key_here"})
+      iex> ProdopsEx.Artifact.stream_refine_artifact(%{artifact_slug: "story", artifact_id: 1, refine_prompt: "some prompt"})
   """
   @spec stream_refine_artifact(map, Keyword.t()) :: {:ok, map} | {:error, any}
   def stream_refine_artifact(params, config \\ []) do

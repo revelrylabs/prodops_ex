@@ -49,42 +49,40 @@ defmodule ProdopsEx.PromptTemplate do
   - `config` (optional): a configuration map used to override default config values
 
   ## Example
-
-      iex> ProdopsEx.PromptTemplate.list("story")
-      {:ok,
-        %{
-          status: "ok",
-          response: %{
-            "prompt_templates" => [
-              {
-                "id": 3,
-                "name": "Example Prompt",
-                "content": "This is an example prompt template body",
-                "description": "This is an example prompt template",
-                "custom_variables": [
-                    {
-                        "id": "df57af61-7741-4152-b5eb-0484b281eaaa",
-                        "name": "Example Input",
-                        "description": null
-                    }
-                ],
-                "document_queries": [
-                    {
-                        "id": "dcbbc393-9f00-4020-a150-ac5fa5f66095",
-                        "name": "Example Document Query",
-                        "query": "{custom.Example Input}",
-                        "count": 1,
-                        "type": "code",
-                        "min_score": 0.75,
-                        "collection_id": null,
-                        "collection_ids": []
-                    }
-                ]
-            },
-              ...
-            ]
-          }
-        }}
+      iex> ProdopsEx.PromptTemplate.list("questions")
+  	{:ok,
+  	 %{
+  		 status: "ok",
+  		 response: %{
+  			 "prompt_templates" => [
+  				 %{
+  					 "content" => "Answer this: {custom.Question} Use these docs: {query.Documents}",
+  					 "custom_variables" => [
+  						 %{
+  							 "question" => "Question",
+  							 "id" => "fc4cbbe7-8f90-4c39-a8e6-582d37884f14",
+  							 "name" => "Question"
+  						 }
+  					 ],
+  					 "description" => "Answers a question using document queries",
+  					 "document_queries" => [
+  						 %{
+  							 "collection_id" => nil,
+  							 "collection_ids" => ~c"s",
+  							 "count" => 3,
+  							 "id" => "6c69b859-8c40-41c9-b8f9-8bb1bdf369a1",
+  							 "min_score" => 0.75,
+  							 "name" => "Documents",
+  							 "query" => "{custom.Question}",
+  							 "type" => nil
+  						 }
+  					 ],
+  					 "id" => 1,
+  					 "name" => "Question Answering"
+  				 }
+  			 ]
+  		 }
+  	 }}
 
   ## Returns
   The function returns a list of prompt templates for the specified artifact type.

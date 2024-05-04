@@ -25,7 +25,7 @@ defmodule ProdopsEx.DataCenter do
 
   ## Examples
 
-      iex> ProdopsEx.DataCenter.upload_document("/path/to/file.txt"})
+      iex> ProdopsEx.DataCenter.upload_document("/path/to/file.txt")
       {:ok, %{status: "ok", response: %{"id" => 4}}}
   """
   @spec upload_document(map, Keyword.t()) :: {:ok, map} | {:error, any}
