@@ -131,9 +131,29 @@ defmodule ProdopsEx.Artifact do
   ## Example
 
       iex> ProdopsEx.Artifact.get(1, "story")
-      {:ok,
-
-        }
+			{:ok,
+			 %{
+				 status: "ok",
+				 response: %{
+					 "artifact" => %{
+						 "chat_history" => [
+							 %{
+								 "content" => "some user prompt content",
+								 "role" => "user"
+							 },
+							 %{
+								 "content" => "some assistant response content",
+								 "role" => "assistant"
+							 }
+						 ],
+						 "id" => 123,
+						 "manually_edited" => false,
+						 "name" => "Some Name",
+						 "notes" => nil,
+						 "share_token" => nil
+					 }
+				 }
+			 }}
   """
   @spec get(integer(), String.t(), Keyword.t()) :: {:ok, map} | {:error, any}
   def get(artifact_id, artifact_slug, config \\ []) when is_integer(artifact_id) and is_binary(artifact_slug) do
