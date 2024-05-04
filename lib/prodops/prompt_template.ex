@@ -10,7 +10,7 @@ defmodule ProdopsEx.PromptTemplate do
 
   They may look something like this:
 
-  ```
+  ```txt
   You are a helpful assistant. A user has asked a question about company
   policies, which you must answer. This is their question:
 
@@ -26,12 +26,13 @@ defmodule ProdopsEx.PromptTemplate do
 
   The value `{query.Company Policies}` will automatically find relevant
   information by checking the value of an explicit input such as
-  `{custom.Question}`, and can search through all Documents or a collection of
-  Documents. In this example, it might search a collection of employee manuals,
+  `{custom.Question}`, and can search through all Documents or a Collection of
+  Documents. In this example, it might search a Collection of employee manuals,
   playbooks, etc., and will calculate the most semantically similar values
   between their sections and the user's question, which is the value input into
-  `{custom.Question}`. This technique is known as Retrieval-Augmented
-  Generation.
+  `{custom.Question}`. It will then return the relevant segments and insert them
+  into the prompt prior to generation. This technique is known as
+  Retrieval-Augmented Generation.
 
   For more information, see the [ProdOps.AI Prompts help page](https://help.prodops.ai/docs/category/prompts).
   """
