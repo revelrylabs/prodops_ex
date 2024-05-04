@@ -1,6 +1,10 @@
 defmodule ProdopsEx.Project do
   @moduledoc """
   Handles project operations for the ProdOps API.
+
+  A Project is used for organization, and likely represents some real-world
+  project, such as development of an application. Some resources can be
+  Project-scoped. A Team may have multiple Projects.
   """
   alias ProdopsEx.Client
   alias ProdopsEx.Config

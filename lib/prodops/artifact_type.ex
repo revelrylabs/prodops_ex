@@ -1,6 +1,10 @@
 defmodule ProdopsEx.ArtifactType do
   @moduledoc """
   Handles artifact type operations for the ProdOps API.
+
+  These represent types of outputs. They may be things like user stories, code
+  snippets, blog posts, or anything else that has been defined within the
+  ProdOps UI. They are used to classify generated Artifacts into groups.
   """
   alias ProdopsEx.Client
   alias ProdopsEx.Config

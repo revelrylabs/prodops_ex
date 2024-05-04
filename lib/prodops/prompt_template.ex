@@ -1,6 +1,39 @@
 defmodule ProdopsEx.PromptTemplate do
   @moduledoc """
-  Handles prompt template operations for the ProdOps API
+  Handles prompt template operations for the ProdOps API.
+
+  Prompt Templates are the building blocks used for generating Artifacts.
+
+  They are a combination of hard-coded information and variables which represent
+  data that can be inserted. They are the basic building block for setting up
+  repeatable workflows to generate Artifacts.
+
+  They may look something like this:
+
+  ```
+  You are a helpful assistant. A user has asked a question about company
+  policies, which you must answer. This is their question:
+
+  {custom.Question}
+
+  Use this information to answer the question:
+
+  {query.Company Policies}
+  ```
+
+  The value `{custom.Question}` can be explicitly passed into the template
+  when generating a new Artifact.
+
+  The value `{query.Company Policies}` will automatically find relevant
+  information by checking the value of an explicit input such as
+  `{custom.Question}`, and can search through all Documents or a collection of
+  Documents. In this example, it might search a collection of employee manuals,
+  playbooks, etc., and will calculate the most semantically similar values
+  between their sections and the user's question, which is the value input into
+  `{custom.Question}`. This technique is known as Retrieval-Augmented
+  Generation.
+
+  For more information, see the [ProdOps.AI Prompts help page](https://help.prodops.ai/docs/category/prompts).
   """
   alias ProdopsEx.Client
   alias ProdopsEx.Config
